@@ -1,6 +1,7 @@
 package com.example.goguessmultiplayer;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 import java.time.Instant;
+import java.util.UUID;
 
 
 @Configuration
@@ -44,6 +46,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         @MessageMapping("/greeting")
         public String handle(String greeting) {
             return "[" + Instant.now() + ": " + greeting;
+        }
+    }
+
+    @Controller
+    public class TestController {
+        @MessageMapping("/room/{uuid}")
+        public String handle(@DestinationVariable("uuid") UUID uuid, String message) {
+            return "[" + message + ": uuid: " + uuid;
         }
     }
 }
