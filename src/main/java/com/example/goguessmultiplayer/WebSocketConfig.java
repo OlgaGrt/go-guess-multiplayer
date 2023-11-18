@@ -53,6 +53,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public class TestController {
         @MessageMapping("/room/{uuid}")
         public String handle(@DestinationVariable("uuid") UUID uuid, String message) {
+
+            // по айди нашли игру из бд
+
+            // в зависимости от комманды что-то делать дальше:
+            // 1. присоединиться к комнате {слинковать играка с игрой}
+            // 2. дать ответ
+
             return "[" + message + ": uuid: " + uuid;
         }
     }
