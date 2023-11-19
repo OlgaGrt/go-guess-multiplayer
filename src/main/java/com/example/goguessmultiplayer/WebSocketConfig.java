@@ -1,5 +1,8 @@
 package com.example.goguessmultiplayer;
 
+import com.example.goguessmultiplayer.entity.GameRoom;
+import com.example.goguessmultiplayer.service.GameService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -12,10 +15,12 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 import java.time.Instant;
 import java.util.UUID;
 
-
+@AllArgsConstructor
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    GameService gameService;
 
     //expose a STOMP endpoint
 
@@ -55,10 +60,20 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         public String handle(@DestinationVariable("uuid") UUID uuid, String message) {
 
             // по айди нашли игру из бд
-
             // в зависимости от комманды что-то делать дальше:
             // 1. присоединиться к комнате {слинковать играка с игрой}
             // 2. дать ответ
+            GameRoom gameRoom = gameService.findGameRoom(uuid);
+
+            switch (message) {
+                case "join": {
+                    System.out.println("player x joined");
+
+                }
+                case "choose": {
+                    System.out.println("player x made choose");
+                }
+            }
 
             return "[" + message + ": uuid: " + uuid;
         }

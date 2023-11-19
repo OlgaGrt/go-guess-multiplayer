@@ -26,8 +26,11 @@ stompClient.connect({}, function (frame) {
     });
 
     // Send a message to the destination
-    const message = 'message from client';
-    stompClient.send('/app/room/' + roomUUID, {}, message);
+    const message_join = 'join';
+    stompClient.send('/app/room/' + roomUUID, {}, message_join);
+
+    const message_choose = 'choose';
+    stompClient.send('/app/room/' + roomUUID, {}, message_choose);
 });
 
 // Handle disconnection
