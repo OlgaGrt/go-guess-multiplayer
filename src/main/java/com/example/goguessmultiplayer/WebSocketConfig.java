@@ -68,7 +68,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
             switch (message) {
                 case "join": {
                     System.out.println("player x joined");
-
+                    //countOfPlayers;
+                }
+                case "ready": {
+                    System.out.println("player x joined");
+                    //countOfPlayers; = countOfReady
                 }
                 case "choose": {
                     System.out.println("player x made choose");

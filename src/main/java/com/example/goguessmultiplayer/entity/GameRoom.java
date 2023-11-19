@@ -7,4 +7,7 @@ import java.util.UUID;
 @Data
 public class GameRoom {
     UUID uuid;
+
+    //List<Players>
+
 }
